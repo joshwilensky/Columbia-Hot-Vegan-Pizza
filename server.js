@@ -1,10 +1,24 @@
 // DEPENDENCIES=================================================
-var express = require("express");
-var path = require("path");
+const express = require("express");
+const app = express();
+const path = require("path");
+const PORT = process.env.PORT || 3000;
+const bodyParser = require("body-parser");
 
-// SETS UP EXPRESS APP==========================================
-var app = express();
-var PORT = 3000;
+// Starting Data========================
+let reservations = [{
+  id: 12345,
+  name: Bella,
+  email: "",
+  phone: xxx - xxx - xxxx,
+}];
+
+let waitList = [{
+  id: 12345,
+  name: Bella,
+  email: "",
+  phone: xxx - xxx - xxxx,
+}];
 
 // Sets up the Express app to handle data parsing
 app.use(
@@ -19,57 +33,61 @@ app.use(apiroutes);
 app.use(htmlroutes);
 // Basic route that sends the user first to the AJAX Page
 app.get("/", function (req, res) {
-  res.sendFile(path.join(__dirname, "index.html"));
+  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 app.get("/tables", function (req, res) {
-  res.sendFile(path.join(__dirname, "tables.html"));
+  res.sendFile(path.join(__dirname, "public", "tables.html"));
 });
 
 app.get("/reserve", function (req, res) {
-  res.sendFile(path.join(__dirname, "reserve.html"));
+  res.sendFile(path.join(__dirname, "public", "reserve.html"));
 });
 
 app.get("/waitlist", function (req, res) {
-  res.sendFile(path.join(__dirname, "waitlist.html"));
+  res.sendFile(path.join(__dirname, "public", "waitlist.html"));
 });
 
 // API ROUTES==============================================
 app.get("/api/reservations", function (req, res) {
-  res.sendFile("this will display all the reservations.");
+  res.json("this will display all the reservations.");
 
   app.get("/api/tables", function (req, res) {
     res.sendFile("this will display all the tables.");
     console.log(chosen);
 
-    for (var i = 0; i < characters.length; i++) {
-      if (chosen === characters[i].routeName) {
-        return res.json(characters[i]);
+    for (var i = 0; i < tables.length; i++) {
+      if (chosen === tables[i].routeName) {
+        return res.json(tables[i]);
       }
     }
 
     return res.json(false);
   });
-  /// Create New Characters - takes in JSON input
-  app.post("/api/characters", function (req, res) {
-    // req.body hosts is equal to the JSON post sent from the user
-    // This works because of our body parsing middleware
-    var newCharacter = req.body;
+  /// Create New Reservation - takes in JSON input
+  app.post("/api/reservations", function (req, res) {
+    var newReservation = req.body;
+    console.log(newReservation);
 
-    // Using a RegEx Pattern to remove spaces from newCharacter
-    // You can read more about RegEx Patterns later https://www.regexbuddy.com/regex.html
-    newCharacter.routeName = newCharacter.name
-      .replace(/\s+/g, "")
-      .toLowerCase();
+    // Only make a reservation if there is an open table
+    if (reservations.length < 5) {
+      reservations.push(newReservation);
 
-    console.log(newCharacter);
-
-    characters.push(newCharacter);
-
-    res.json(newCharacter);
+    } else {
+      waitlist.push(newReservation);
+      console.log(waitList);
+      res.json("You've been added to the wait list")
+    }
   });
-});
-// Starts the server to begin listening
-app.listen(PORT, function () {
-  console.log("App listening on PORT " + PORT);
+
+  // Delete API==============================
+  app.delete("/api/reservations", function (req, res) {
+    reservations = [];
+    waitList = [];
+    res.status = [200].json("You've cleared all the reservations.")
+  });
+  // Starts the server to begin listening
+  app.listen(PORT, function () {
+    console.log("App listening on PORT " + PORT);
+  });
 });
