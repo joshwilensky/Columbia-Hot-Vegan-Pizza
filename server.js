@@ -30,10 +30,12 @@ app.get("/reserve", function (req, res) {
   res.sendFile(path.join(__dirname, "reserve.html"));
 });
 
-// Displays a single character, or returns false
+// API ROUTES==============================================
 app.get("/api/reservations", function (req, res) {
-  var chosen = req.params.character;
+  res.sendFile("this will display all the reservations.");
 
+  app.get("/api/tables", function (req, res) {
+    res.sendFile("this will display all the tables.");
   console.log(chosen);
 
   for (var i = 0; i < characters.length; i++) {
