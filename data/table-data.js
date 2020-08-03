@@ -1,7 +1,7 @@
 var tableArray = [{
+    customerId: '12345',
     customerName: 'Josh',
     customerEmail: 'joshwilensky@gmail.com',
-    customerId: '12345',
     phoneNumber: '(xxx) xxx-xxxx',
 }];
 
