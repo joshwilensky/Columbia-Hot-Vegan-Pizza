@@ -1,8 +1,8 @@
-var waitlistArray = [{
-    customerName: 'Josh',
-    customerEmail: 'joshwilensky@gmail.com',
-    customerId: '12345',
+var waitingArray = [{
+    customerName: 'Sandra',
+    customerEmail: 'sandra@gmail.com',
+    customerId: '12346',
     phoneNumber: '(xxx) xxx-xxxx',
 }];
 
-module.exports = waitlistArray;
+module.exports = waitingArray;
