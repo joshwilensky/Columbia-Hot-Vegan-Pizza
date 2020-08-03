@@ -2,51 +2,22 @@
 const express = require("express");
 const app = express();
 const path = require("path");
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 const bodyParser = require("body-parser");
 
 // Starting Data========================
-let reservations = [{
-  id: 12345,
-  name: Bella,
-  email: "",
-  phone: xxx - xxx - xxxx,
-}];
-
-let waitList = [{
-  id: 12345,
-  name: Bella,
-  email: "",
-  phone: xxx - xxx - xxxx,
-}];
-
-// Sets up the Express app to handle data parsing
 app.use(
   express.urlencoded({
     extended: true,
   })
 );
 app.use(express.json());
+app.use(bodyParser.json());
 
 // ROUTES=================================
-app.use(apiroutes);
-app.use(htmlroutes);
 // Basic route that sends the user first to the AJAX Page
-app.get("/", function (req, res) {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
-});
-
-app.get("/tables", function (req, res) {
-  res.sendFile(path.join(__dirname, "public", "tables.html"));
-});
-
-app.get("/reserve", function (req, res) {
-  res.sendFile(path.join(__dirname, "public", "reserve.html"));
-});
-
-app.get("/waitlist", function (req, res) {
-  res.sendFile(path.join(__dirname, "public", "waitlist.html"));
-});
+require('./app/routing/api-routes')(app);
+require('./app/routing/html-routes')(app);
 
 // API ROUTES==============================================
 app.get("/api/reservations", function (req, res) {
