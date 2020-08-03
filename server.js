@@ -1,10 +1,8 @@
-// Dependencies
-// =============================================================
+// DEPENDENCIES=================================================
 var express = require("express");
 var path = require("path");
 
-// Sets up the Express App
-// =============================================================
+// SETS UP EXPRESS APP==========================================
 var app = express();
 var PORT = 3000;
 
