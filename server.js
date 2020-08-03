@@ -1,10 +1,8 @@
-// Dependencies
-// =============================================================
+// DEPENDENCIES=================================================
 var express = require("express");
 var path = require("path");
 
-// Sets up the Express App
-// =============================================================
+// SETS UP EXPRESS APP==========================================
 var app = express();
 var PORT = 3000;
 
@@ -17,6 +15,8 @@ app.use(
 app.use(express.json());
 
 // ROUTES=================================
+app.use(apiroutes);
+app.use(htmlroutes);
 // Basic route that sends the user first to the AJAX Page
 app.get("/", function (req, res) {
   res.sendFile(path.join(__dirname, "index.html"));
@@ -28,6 +28,10 @@ app.get("/tables", function (req, res) {
 
 app.get("/reserve", function (req, res) {
   res.sendFile(path.join(__dirname, "reserve.html"));
+});
+
+app.get("/waitlist", function (req, res) {
+  res.sendFile(path.join(__dirname, "waitlist.html"));
 });
 
 // API ROUTES==============================================
