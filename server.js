@@ -19,16 +19,15 @@ app.use(express.json());
 // ROUTES=================================
 // Basic route that sends the user first to the AJAX Page
 app.get("/", function (req, res) {
-  res.sendFile(path.join(__dirname, "view.html"));
+  res.sendFile(path.join(__dirname, "index.html"));
 });
 
-app.get("/add", function (req, res) {
-  res.sendFile(path.join(__dirname, "add.html"));
+app.get("/tables", function (req, res) {
+  res.sendFile(path.join(__dirname, "tables.html"));
 });
 
-// Displays all characters
-app.get("/api/tables", function (req, res) {
-  return res.json(characters);
+app.get("/reserve", function (req, res) {
+  res.sendFile(path.join(__dirname, "reserve.html"));
 });
 
 // Displays a single character, or returns false
